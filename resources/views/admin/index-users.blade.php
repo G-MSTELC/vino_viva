@@ -1,13 +1,10 @@
-@extends('layouts.app')
-@section("title", "Liste d'utilisateurs")
+@extends('layouts.admin')
+@section('title', 'Liste d'utilisateurs')
 @section('content')
 <header>
     utilisateurs
 </header>
 <main>
-    <div class="btn-submit">
-        <a href="{{ route('admin.create-user') }}">ajouter un utilisateur</a>
-    </div>
     <div class="form-container">
         <form action="">
             <div class="form-input-container">
@@ -16,24 +13,26 @@
             </div>
         </form>
     </div>
-    <div class="admin-table-container">
+    <div>
         <table>
             <thead>
-                <tr>
-                    <th>NOM</th>
-                    <th>ACTION</th>
-                </tr>
+                <tr>Prénom</tr>
+                <tr>Nom</tr>
+                <tr>Action</tr>
             </thead>
             <tbody>
-                @forelse($users as $user)
+                {{-- @forelse($users as $user) --}}
                 <tr>
-                    <td>{{ $user->nom }}</td>
-                    <td><a href="{{ route('admin.show-user', $user->id) }}"><button class="btn-ajouter">Mettre à jour</button></a></td>
+                    <td>{{-- {{ $user->prenom }} --}}</td>
+                    <td>{{-- {{ $user->nom }} --}}</td>
+                    <td><a href="#" class="text-dark">Mettre à jour</a></td>
+                    {{-- {{ route('profil.edit', $user->id) }} --}}
                 </tr>
-                @empty
-                <p>Aucun utilisateur</p>
-                @endforelse
+                {{-- @empty --}}
+                <tr>Aucun utilisateur</tr>
+                {{-- @endforelse --}}
             </tbody>
+            <th></th>
         </table>
     </div>
 </main>

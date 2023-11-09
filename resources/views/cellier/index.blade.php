@@ -3,11 +3,11 @@
 @extends('layouts.app')
 @section('content')
     <main class="nav-margin">
-        <a href="{{ route('cellier.create') }}" class="btn-round btn-action">+ ajouter un cellier</a>
+        <a href="#" class="btn-round btn-action">+ ajouter un cellier</a>
         <h1>Vos celliers</h1>
         @forelse($celliers as $cellier)
             <section class="card-cellier">
-                <a href="{{ route('cellier.show', $cellier->id) }}">
+                <a href="#">
                     <div>
                         <h2>{{ $cellier->nom }}</h2>
                         <div class="card-container-stats">

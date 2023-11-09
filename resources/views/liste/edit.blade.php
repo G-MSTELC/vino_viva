@@ -1,27 +1,31 @@
-<!-- Modification du nom d'une liste d'achat et supression -->
-
 @extends('layouts.app')
+
+@section('title', 'Modifier la liste')
+
 @section('content')
-    <main class="form-border nav-margin">
-        <h1 class="form-h1">
-            Modifier une liste
-        </h1>
-        <div class="form-container">
-            <form method="post" id="modifierListe">
-                @method('put')
+    <header>
+        <h1>Modifier la liste</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Modifier la liste</h2>
+            <form action="{{ route('liste.update', $liste->id) }}" method="post">
                 @csrf
+                @method('put')
+
                 <div class="form-input-container">
                     <label for="nom">Nom de la liste</label>
                     <input type="text" id="nom" name="nom" value="{{ $liste->nom }}">
-                    @if ($errors->has('nom')) 
-                        <div>{{ $errors->first('nom') }}</div>
-                    @endif
                 </div>
-                <div class="form-button">
-                    <button type="submit" form="modifierListe" class="btn-submit">Mettre à jour</button>
-                </div>
-            </form>
-        </div>
-    </main>
 
+                <div class="form-input-container">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description">{{ $liste->description }}</textarea>
+                </div>
+                <!-- Ajoutez d'autres champs pour la modification ici -->
+
+                <button type="submit">Enregistrer les modifications</button>
+            </form>
+        </section>
+    </main>
 @endsection

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BouteilleCellier;
+use App\Models\BouteillePanier;
 use Illuminate\Http\Request;
 
-class BouteilleCellierController extends Controller
+class BouteillePanierController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class BouteilleCellierController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\BouteilleCellier  $bouteilleCellier
+     * @param  \App\Models\BouteillePanier  $bouteillePanier
      * @return \Illuminate\Http\Response
      */
-    public function show(BouteilleCellier $bouteilleCellier)
+    public function show(BouteillePanier $bouteillePanier)
     {
         //
     }
@@ -52,10 +52,10 @@ class BouteilleCellierController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\BouteilleCellier  $bouteilleCellier
+     * @param  \App\Models\BouteillePanier  $bouteillePanier
      * @return \Illuminate\Http\Response
      */
-    public function edit(BouteilleCellier $bouteilleCellier)
+    public function edit(BouteillePanier $bouteillePanier)
     {
         //
     }
@@ -64,10 +64,10 @@ class BouteilleCellierController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\BouteilleCellier  $bouteilleCellier
+     * @param  \App\Models\BouteillePanier  $bouteillePanier
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BouteilleCellier $bouteilleCellier)
+    public function update(Request $request, BouteillePanier $bouteillePanier)
     {
         //
     }
@@ -75,10 +75,10 @@ class BouteilleCellierController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\BouteilleCellier  $bouteilleCellier
+     * @param  \App\Models\BouteillePanier  $bouteillePanier
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BouteilleCellier $bouteilleCellier)
+    public function destroy(BouteillePanier $bouteillePanier)
     {
         //
     }

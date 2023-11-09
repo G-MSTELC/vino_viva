@@ -2,165 +2,65 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Liste;
-use App\Models\Cellier;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB; // Importez la classe DB pour effectuer des requêtes SQL
 
 class ListeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    // Affiche la liste des éléments
     public function index()
     {
-        $listes = Liste::withCount('bouteillesListes')
-                            ->with('bouteillesListes.bouteille')
-                            ->where('user_id', Auth::id())
-                            ->get(); 
-
-        $listes->each(function ($liste) {
-            $liste->prixTotal = 0; 
-            foreach($liste->bouteillesListes as $bouteilleListe) {
-                $liste->prixTotal += $bouteilleListe->bouteille->prix; 
-            }
-        }); 
-        
-        return view('liste.index', ['listes' => $listes]); 
-    }
-    
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function indexJSON()
-    {
-        $listes = Liste::withCount('bouteillesListes')
-                            ->with('bouteillesListes.bouteille')
-                            ->where('user_id', Auth::id())
-                            ->get(); 
-
-        $listes->each(function ($liste) {
-            $liste->prixTotal = 0; 
-            foreach($liste->bouteillesListes as $bouteilleListe) {
-                $liste->prixTotal += $bouteilleListe->bouteille->prix; 
-            }
-        }); 
-        
-        return response()->json($listes);
+        $listes = DB::select('SELECT * FROM listes'); // Remplacez 'listes' par le nom de votre table de listes
+        return view('liste.index', ['listes' => $listes]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    // Affiche le formulaire de création de liste
     public function create()
     {
         return view('liste.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    // Enregistre une nouvelle liste
     public function store(Request $request)
     {
-        $request->validate(
-            ['nom' => 'required|max:255'],
-            [
-                'nom.required' => 'Le nom de de la liste est obligatoire.', 
-                'nom.max' => 'Le nom ne doit pas dépasser 255 caractères.'
-            ]
-        ); 
+        // Code pour valider et enregistrer la nouvelle liste
+        // Vous devrez insérer les données directement dans la table listes
+        // Exemple : DB::insert('INSERT INTO listes (champ1, champ2) VALUES (?, ?)', [$valeur1, $valeur2]);
 
-        $newListe = Liste::create([
-            'nom' => $request->nom, 
-            'user_id' => Auth::id()
-        ]);
-
-        $newListe->save(); 
-
-        return redirect(route('liste.index')); 
+        return redirect()->route('liste.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Liste  $liste
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Liste $liste_id, Request $request)
+    // Affiche une liste spécifique
+    public function show($id)
     {
-        $liste = $liste_id;
-
-        $sort = $request->input('sort');
-    
-        if ($sort == 'name-asc') {
-            $liste->bouteillesListes = $liste->bouteillesListes->sortBy('bouteille.nom');
-        } elseif ($sort == 'name-desc') {
-            $liste->bouteillesListes = $liste->bouteillesListes->sortByDesc('bouteille.nom');
-        } elseif ($sort == 'price-asc') {
-            $liste->bouteillesListes = $liste->bouteillesListes->sortBy('bouteille.prix');
-        } elseif ($sort == 'price-desc') {
-            $liste->bouteillesListes = $liste->bouteillesListes->sortByDesc('bouteille.prix');
-        }
-
-        $celliers = Cellier::where('user_id', Auth::id())->get();
-    
-        return view('liste.show', ['liste' => $liste, 'celliers' => $celliers]);
+        // Code pour récupérer et afficher une liste spécifique
+        return view('liste.show');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Liste  $liste
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($liste_id)
+    // Affiche le formulaire de modification de liste
+    public function edit($id)
     {
-        $liste = Liste::findOrFail($liste_id); 
-
-        return view('liste.edit', ['liste' => $liste]); 
+        // Code pour récupérer et afficher le formulaire de modification
+        return view('liste.edit');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Liste  $liste
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $liste_id)
+    // Met à jour une liste existante
+    public function update(Request $request, $id)
     {
-        $request->validate(
-            ['nom' => 'required|max:255'],
-            [
-                'nom.required' => 'Le nom de la liste est obligatoire.', 
-                'nom.max' => 'Le nom ne doit pas dépasser 255 caractères.'
-            ]
-        ); 
+        // Code pour valider et mettre à jour la liste
+        // Vous devrez mettre à jour les données directement dans la table listes
+        // Exemple : DB::update('UPDATE listes SET champ1 = ?, champ2 = ? WHERE id = ?', [$nouvelleValeur1, $nouvelleValeur2, $id]);
 
-        Liste::findOrFail($liste_id)->update([
-            'nom' => $request->nom
-        ]);
-
-        return redirect(route('liste.index'));
+        return redirect()->route('liste.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Liste  $liste
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Liste $liste)
+    // Supprime une liste
+    public function destroy($id)
     {
-        //
+        // Code pour supprimer une liste
+        // Vous devrez supprimer la ligne correspondante dans la table listes
+        // Exemple : DB::delete('DELETE FROM listes WHERE id = ?', [$id]);
+
+        return redirect()->route('liste.index');
     }
 }

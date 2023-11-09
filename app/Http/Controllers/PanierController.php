@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BouteilleCellier;
+use App\Models\Panier;
 use Illuminate\Http\Request;
 
-class BouteilleCellierController extends Controller
+class PanierController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class BouteilleCellierController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\BouteilleCellier  $bouteilleCellier
+     * @param  \App\Models\Panier  $panier
      * @return \Illuminate\Http\Response
      */
-    public function show(BouteilleCellier $bouteilleCellier)
+    public function show(Panier $panier)
     {
         //
     }
@@ -52,10 +52,10 @@ class BouteilleCellierController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\BouteilleCellier  $bouteilleCellier
+     * @param  \App\Models\Panier  $panier
      * @return \Illuminate\Http\Response
      */
-    public function edit(BouteilleCellier $bouteilleCellier)
+    public function edit(Panier $panier)
     {
         //
     }
@@ -64,10 +64,10 @@ class BouteilleCellierController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\BouteilleCellier  $bouteilleCellier
+     * @param  \App\Models\Panier  $panier
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BouteilleCellier $bouteilleCellier)
+    public function update(Request $request, Panier $panier)
     {
         //
     }
@@ -75,10 +75,10 @@ class BouteilleCellierController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\BouteilleCellier  $bouteilleCellier
+     * @param  \App\Models\Panier  $panier
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BouteilleCellier $bouteilleCellier)
+    public function destroy(Panier $panier)
     {
         //
     }

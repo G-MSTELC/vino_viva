@@ -30,28 +30,6 @@ class CellierController extends Controller
         
         return view('cellier.index', ['celliers' => $celliers]); 
     }
-    
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function indexJSON()
-    {
-        $celliers = Cellier::withCount('bouteillesCelliers')
-                            ->with('bouteillesCelliers.bouteille')
-                            ->where('user_id', Auth::id())
-                            ->get(); 
-
-        $celliers->each(function ($cellier) {
-            $cellier->prixTotal = 0; 
-            foreach($cellier->bouteillesCelliers as $bouteilleCellier) {
-                $cellier->prixTotal += $bouteilleCellier->bouteille->prix; 
-            }
-        }); 
-        
-        return response()->json($celliers);
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -60,7 +38,7 @@ class CellierController extends Controller
      */
     public function create()
     {
-        return view('cellier.create');
+        //
     }
 
     /**
@@ -71,22 +49,7 @@ class CellierController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(
-            ['nom' => 'required|max:255'],
-            [
-                'nom.required' => 'Le nom du cellier est obligatoire.', 
-                'nom.max' => 'Le nom ne doit pas dépasser 255 caractères.'
-            ]
-        ); 
-
-        $newCellier = Cellier::create([
-            'nom' => $request->nom, 
-            'user_id' => Auth::id()
-        ]);
-
-        $newCellier->save(); 
-
-        return redirect(route('cellier.index')); 
+        //
     }
 
     /**
@@ -95,23 +58,9 @@ class CellierController extends Controller
      * @param  \App\Models\Cellier  $cellier
      * @return \Illuminate\Http\Response
      */
-    public function show(Cellier $cellier_id, Request $request)
+    public function show(Cellier $cellier)
     {
-        $cellier = $cellier_id;
-
-        $sort = $request->input('sort');
-    
-        if ($sort == 'name-asc') {
-            $cellier->bouteillesCelliers = $cellier->bouteillesCelliers->sortBy('bouteille.nom');
-        } elseif ($sort == 'name-desc') {
-            $cellier->bouteillesCelliers = $cellier->bouteillesCelliers->sortByDesc('bouteille.nom');
-        } elseif ($sort == 'price-asc') {
-            $cellier->bouteillesCelliers = $cellier->bouteillesCelliers->sortBy('bouteille.prix');
-        } elseif ($sort == 'price-desc') {
-            $cellier->bouteillesCelliers = $cellier->bouteillesCelliers->sortByDesc('bouteille.prix');
-        }
-    
-        return view('cellier.show', ['cellier' => $cellier]);
+        //
     }
 
     /**
@@ -120,11 +69,9 @@ class CellierController extends Controller
      * @param  \App\Models\Cellier  $cellier
      * @return \Illuminate\Http\Response
      */
-    public function edit($cellier_id)
+    public function edit(Cellier $cellier)
     {
-        $cellier = Cellier::findOrFail($cellier_id); 
-
-        return view('cellier.edit', ['cellier' => $cellier]); 
+        //
     }
 
     /**
@@ -134,21 +81,9 @@ class CellierController extends Controller
      * @param  \App\Models\Cellier  $cellier
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $cellier_id)
+    public function update(Request $request, Cellier $cellier)
     {
-        $request->validate(
-            ['nom' => 'required|max:255'],
-            [
-                'nom.required' => 'Le nom du cellier est obligatoire.', 
-                'nom.max' => 'Le nom ne doit pas dépasser 255 caractères.'
-            ]
-        ); 
-
-        Cellier::findOrFail($cellier_id)->update([
-            'nom' => $request->nom
-        ]);
-
-        return redirect(route('cellier.index'));
+        //
     }
 
     /**
@@ -157,16 +92,8 @@ class CellierController extends Controller
      * @param  \App\Models\Cellier  $cellier
      * @return \Illuminate\Http\Response
      */
-    public function destroy($cellier_id)
+    public function destroy(Cellier $cellier)
     {
-        try {
-            $cellier = Cellier::findOrFail($cellier_id); 
-            $cellier->bouteillesCelliers()->delete(); 
-            $cellier->delete(); 
-            return redirect(route('cellier.index')); 
-        }
-        catch (\Exception $e) {
-            return redirect(route('cellier.index'))->with('error', 'Le cellier n\'existe pas'); 
-        }
+        //
     }
 }

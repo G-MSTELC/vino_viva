@@ -5,18 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class BouteilleCellier extends Model
+class BouteillePanier extends Model
 {
     use HasFactory;
-    
-    protected $table = 'bouteilles_celliers';
+
+    protected $table = 'bouteilles_paniers';
 
     protected $fillable = [
         'bouteille_id',
         'cellier_id',
-        'date_achat',
-        'date_ouverture',
-        'peremption',
         'quantite' 
     ]; 
 
@@ -25,13 +22,8 @@ class BouteilleCellier extends Model
         return $this->belongsTo(Bouteille::class);
     }
 
-    public function bouteillePersonnalisee() 
+    public function panier() 
     {
-        return $this->belongsTo(BouteillePersonnalisee::class);
-    }
-
-    public function cellier() 
-    {
-        return $this->belongsTo(Cellier::class);
+        return $this->belongsTo(Panier::class);
     }
 }
